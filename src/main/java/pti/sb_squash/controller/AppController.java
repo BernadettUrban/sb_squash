@@ -30,11 +30,7 @@ public class AppController {
 		return "admin";
 	}
 
-	@GetMapping("/userform")
-	public String userForm() {
 
-		return "userform.html";
-	}
 
 	public String generatePassword(int length) {
 		String capitalCaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
