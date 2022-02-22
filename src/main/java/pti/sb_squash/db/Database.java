@@ -96,7 +96,27 @@ public class Database {
 
 		return users;
 	}
-	
+
+	public User getUserById(int id){
+		User user = null;
+		List<User> users = null;
+
+		Session session = sessionFactory.openSession();
+		Transaction tr = session.beginTransaction();
+
+		user = session.get(User.class, id);
+		/*Query query = session.createQuery("SELECT u FROM User u WHERE u.id =: id", User.class);
+		query.setParameter("id", id);
+		users = query.getResultList();
+		user = users.get(0);
+
+		 */
+		tr.commit();
+		session.close();
+
+		return user;
+	}
+
 	public List<Location> getLocations(){
 		List<Location> locations = null;
 		

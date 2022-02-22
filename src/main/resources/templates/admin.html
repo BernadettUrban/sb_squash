@@ -20,8 +20,12 @@
     </form>
     
     <form action="/regmatch" method="get">
-	   
-	    <input type="number" name="playerone" placeholder="playerOne" />
+		<select>
+
+			<option th:each="playerone : ${users}" th:value="${playerone.name}" th:text="${playerone}" />
+
+		</select>
+
 	    <input type="number" name="pointsplayerone" placeholder="pointsPlayerOne" />
 	    <input type="number" name="playertwo" placeholder="playerTwo" />
 	    <input type="number" name="pointsplayertwo" placeholder="pointsPlayerTwo" />

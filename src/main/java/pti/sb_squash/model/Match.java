@@ -1,11 +1,6 @@
 package pti.sb_squash.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "matches")
@@ -15,18 +10,22 @@ public class Match {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
-	@Column(name = "useridplayerone")
-	private int useridPlayerOne;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "useridplayerone")
+	private User useridPlayerOne;
 	@Column(name = "pointsplayerone")
 	private int pointsPlayerOne;
-	@Column(name = "useridplayertwo")
-	private int useridPlayerTwo;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name ="useridplayertwo")
+	private User useridPlayerTwo;
 	@Column(name = "pointsplayertwo")
 	private int pointsPlayerTwo;
 	@Column(name = "locationid")
 	private int locationid;
 	@Column(name = "date")
 	private String date;
+
 
 	public int getId() {
 		return id;
@@ -36,11 +35,11 @@ public class Match {
 		this.id = id;
 	}
 
-	public int getUseridPlayerOne() {
+	public User getUseridPlayerOne() {
 		return useridPlayerOne;
 	}
 
-	public void setUseridPlayerOne(int useridPlayerOne) {
+	public void setUseridPlayerOne(User useridPlayerOne) {
 		this.useridPlayerOne = useridPlayerOne;
 	}
 
@@ -52,11 +51,11 @@ public class Match {
 		this.pointsPlayerOne = pointsPlayerOne;
 	}
 
-	public int getUseridPlayerTwo() {
+	public User getUseridPlayerTwo() {
 		return useridPlayerTwo;
 	}
 
-	public void setUseridPlayerTwo(int useridPlayerTwo) {
+	public void setUseridPlayerTwo(User useridPlayerTwo) {
 		this.useridPlayerTwo = useridPlayerTwo;
 	}
 
@@ -84,10 +83,17 @@ public class Match {
 		this.date = date;
 	}
 
+
 	@Override
 	public String toString() {
-		return "Match [id=" + id + ", useridPlayerOne=" + useridPlayerOne + ", pointsPlayerOne=" + pointsPlayerOne
-				+ ", useridPlayerTwo=" + useridPlayerTwo + ", pointsPlayerTwo=" + pointsPlayerTwo + ", locationid="
-				+ locationid + ", date=" + date + "]";
+		return "Match{" +
+				"id=" + id +
+				", useridPlayerOne=" + useridPlayerOne +
+				", pointsPlayerOne=" + pointsPlayerOne +
+				", useridPlayerTwo=" + useridPlayerTwo +
+				", pointsPlayerTwo=" + pointsPlayerTwo +
+				", locationid=" + locationid +
+				", date='" + date + '\'' +
+				'}';
 	}
 }

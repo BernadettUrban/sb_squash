@@ -102,15 +102,22 @@ public class AppController {
 			@RequestParam(name = "pointsplayertwo") int pointsplayertwo, @RequestParam(name = "location") int location,
 			@RequestParam(name = "date") String date) {
 
-		Match match = new Match();
+		/*Match match = new Match();
 		match.setUseridPlayerOne(playerone);
 		match.setPointsPlayerOne(pointsplayerone);
 		match.setUseridPlayerTwo(playertwo);
 		match.setPointsPlayerTwo(pointsplayertwo);
 		match.setLocationid(location);
-		match.setDate(date);
+		match.setDate(date);*/
 
 		Database db = new Database();
+		Match match = new Match();
+		match.setUseridPlayerOne(db.getUserById(playerone));
+		match.setPointsPlayerOne(pointsplayerone);
+		match.setUseridPlayerTwo(db.getUserById(playertwo));
+		match.setPointsPlayerTwo(pointsplayertwo);
+		match.setLocationid(location);
+		match.setDate(date);
 
 		db.saveMatch(match);
 		List<User>users = db.getUsers();
@@ -126,6 +133,8 @@ public class AppController {
 		 * <select name="playerone">
 		  <option th:each="playerone : ${users} th:number=${playerone}" ></option>
 		</select>
+		*
+		* <input type="number" name="playerone" placeholder="playerOne" />
 		 */
 	}
 
