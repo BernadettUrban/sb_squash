@@ -72,12 +72,12 @@ public class AppController {
 
 	@GetMapping("/reglocation")
 	public String regLocation(Model model, @RequestParam(name = "name") String name,
-			@RequestParam(name = "address") String address) {
+			@RequestParam(name = "address") String address, @RequestParam(name="rate") int rate) {
 
 		Location location = new Location();
 		location.setName(name);
 		location.setAddress(address);
-		location.setRate(1);
+		location.setRate(rate);
 
 		// http://api.napiarfolyam.hu/?bank=mnb&valuta=eur
 
@@ -164,14 +164,6 @@ public class AppController {
 		model.addAttribute("locations", locations);
 
 		return "admin.html";
-		
-		/*
-		 * <select name="playerone">
-		  <option th:each="playerone : ${users} th:number=${playerone}" ></option>
-		</select>
-		*
-		* <input type="number" name="playerone" placeholder="playerOne" />
-		 */
 	}
 
 	@GetMapping("/showmatches")
