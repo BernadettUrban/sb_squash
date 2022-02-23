@@ -152,4 +152,33 @@ public class Database {
 		session.close();
 		return registered;
 	}
+
+	public User getUserByName(String name){
+		User user = null;
+		Session session = sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
+
+		Query query = session.createQuery("SELECT u FROM User u WHERE u.name = :name",
+				User.class);
+		query.setParameter("name", name);
+		List<User> users = query.getResultList();
+		user = users.get(0);
+		transaction.commit();
+		session.close();
+		return user;
+	}
+
+	public void updatePwd(String pwd, String name){
+
+		Session session = sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
+
+		//"UPDATE users u SET u.name = :uName WHERE u.birthYear >= :startDate AND u.birthYear <= :endDate");
+		Query query = session.createQuery("UPDATE users u SET u.password =:pwd WHERE u.name =:name",
+				User.class);
+		query.executeUpdate();
+		transaction.commit();
+		session.close();
+
+	}
 }

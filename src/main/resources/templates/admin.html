@@ -18,21 +18,9 @@
 	    <input type="text" name="address" placeholder="Adress" />
 	    <input type="submit" />
     </form>
-    
-    <form action="/regmatch" method="get">
-		<select>
 
-			<option th:each="playerone : ${users}" th:value="${playerone.name}" th:text="${playerone}" />
+	<a th:href="@{regmatch_start}">Go to Match Registration</a>
 
-		</select>
-
-	    <input type="number" name="pointsplayerone" placeholder="pointsPlayerOne" />
-	    <input type="number" name="playertwo" placeholder="playerTwo" />
-	    <input type="number" name="pointsplayertwo" placeholder="pointsPlayerTwo" />
-	    <input type="number" name="location" placeholder="location" />
-	    <input type="text" name="date" placeholder="date" />
-	    <input type="submit" />
-    </form>
     
 </body>
 </html>

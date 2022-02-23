@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form action="/regmatch_finish" method="get">
+
+        <select name="playerone">
+            <option th:each="playerone : ${users}" th:value="${playerone.name}" th:text="${playerone.name}" />
+        </select>
+        <input type="number" name="pointsplayerone" placeholder="pointsPlayerOne" />
+        <select name="playertwo">
+            <option th:each="playerone : ${users}" th:value="${playerone.name}" th:text="${playerone.name}" />
+        </select>
+        <input type="number" name="pointsplayertwo" placeholder="pointsPlayerTwo" />
+        <select name="location">
+            <option th:each="location : ${locations}" th:value="${location.name}" th:text="${location.name}" />
+        </select>
+        <input type="text" name="date" placeholder="date" />
+        <input type="submit" />
+    </form>
+</body>
+</html>

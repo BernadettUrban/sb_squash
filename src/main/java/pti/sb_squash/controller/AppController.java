@@ -94,7 +94,43 @@ public class AppController {
 		model.addAttribute("location", location);
 		return "admin.html";
 	}
+	@GetMapping("/regmatch_start")
+	public String regMatch_start(Model model) {
+		Database db = new Database();
 
+		List<User> users = db.getUsers();
+		List<Location> locations = db.getLocations();
+
+		model.addAttribute("users", users);
+		model.addAttribute("locations", locations);
+
+		return "regmatch.html";
+	}
+
+	@GetMapping("/regmatch_finish")
+	public String regMatch_finish(@RequestParam(name = "playerone") int playerone,
+								  @RequestParam(name = "pointsplayerone") int pointsplayerone,
+								  @RequestParam(name = "playertwo") int playertwo,
+								  @RequestParam(name = "pointsplayertwo") int pointsplayertwo,
+								  @RequestParam(name = "location") int location,
+								  @RequestParam(name = "date") String date) {
+
+
+		Database db = new Database();
+		Match match = new Match();
+		match.setUseridPlayerOne(db.getUserById(playerone));
+		match.setPointsPlayerOne(pointsplayerone);
+		match.setUseridPlayerTwo(db.getUserById(playertwo));
+		match.setPointsPlayerTwo(pointsplayertwo);
+		match.setLocationid(location);
+		match.setDate(date);
+
+		db.saveMatch(match);
+		db.close();
+
+
+		return "admin.html";
+	}
 	@GetMapping("/regmatch")
 	public String regMatch(Model model, @RequestParam(name = "playerone") int playerone,
 			@RequestParam(name = "pointsplayerone") int pointsplayerone,
@@ -151,7 +187,7 @@ public class AppController {
 	@GetMapping("/login")
 	public String login() {
 
-		return "index";
+		return "login";
 	}
 
 	@PostMapping("/login")
@@ -160,10 +196,16 @@ public class AppController {
 		String targetPage = "";
 		Database db = new Database();
 		boolean registeredUser = db.registeredUser(name, pwd);
+		User user = db.getUserByName(name);
 		String id = "";
 		if (registeredUser == true) {
 
-			targetPage = "showmatches";
+			if(user.isPasswordchanged() == true){
+				targetPage = "showmatches";
+			}else{
+				targetPage = "changepwd";
+			}
+
 
 		} else {
 			targetPage = "login";
@@ -171,6 +213,12 @@ public class AppController {
 		}
 
 		return targetPage;
+	}
+
+	@PostMapping("/changepwd")
+	public String changePassword(@RequestParam(name = "pwd")String pwd){
+
+		return "showmatches";
 	}
 
 }
